@@ -1,9 +1,3 @@
-@use "sass:math";
-
-@function getRem($pixel) {
-  @if math.is-unitless($pixel) {
-    @return math.div($pixel, 16) + rem;
-  } @else {
-    @error "Do not include units";
-  }
-}
+@forward "utils";
+@forward "global";
+@forward "abstract";

@@ -1,0 +1,62 @@
+@use "../../scss/utils/index" as utils;
+
+.auth_intro {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__user_type_holder {
+    @include utils.centered-flex;
+    gap: 2rem;
+    margin: 2rem 0;
+    width: 50%;
+  }
+
+  &__user_type {
+    @include utils.centered-flex;
+    flex-direction: column;
+    border: var(--thin-gray-border);
+    padding: 1rem;
+    border-radius: utils.getRem(8);
+    width: 50%;
+    cursor: pointer;
+
+    img {
+      width: utils.getRem(150);
+    }
+
+    &:hover {
+      border-color: var(--primary-color);
+      background-color: var(--transparent-primary);
+    }
+  }
+
+  &__selected_type {
+    border-color: var(--primary-color);
+    background-color: var(--transparent-primary);
+  }
+
+  &__join_btn {
+    padding: 0.75rem 1rem;
+    border-radius: utils.getRem(6);
+    background-color: var(--primary-color);
+    color: white;
+    margin-bottom: 2rem;
+
+    &:hover {
+      background-color: var(--primary-light);
+    }
+  }
+
+  &__login_btn {
+    background-color: transparent;
+    font-size: 1rem;
+    color: var(--primary-color);
+
+    &:hover {
+      color: var(--primary-light);
+    }
+  }
+}
