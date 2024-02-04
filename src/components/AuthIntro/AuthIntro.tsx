@@ -1,12 +1,12 @@
-import { useState } from "react";
 import styles from "./AuthIntro.module.scss";
 import customerSvg from "../../assets/customer_2.svg";
 import vendorSvg from "../../assets/vendor.svg";
 import { v4 as uuid } from "uuid";
-import { UserOptionsType, UserTypes } from "./type";
+import { useAuthContext } from "../../context/AuthContext/AuthContext";
+import { UserOptionsType } from "../../context/AuthContext/type";
 
 const AuthIntro = () => {
-  const [userType, setUserType] = useState<UserTypes | null>(null);
+  const { userType, setUserType, setAuthStage } = useAuthContext();
   const userOptions: UserOptionsType[] = [
     {
       id: uuid(),
@@ -42,13 +42,22 @@ const AuthIntro = () => {
         })}
       </section>
 
-      <button className={styles.auth_intro__join_btn} disabled={!userType}>
+      <button
+        className={styles.auth_intro__join_btn}
+        disabled={!userType}
+        onClick={() => setAuthStage("registration")}
+      >
         {userType ? `Join as ${userType}` : "Create Account"}
       </button>
 
       <p>
         Already have an account?{" "}
-        <button className={styles.auth_intro__login_btn}>Log in</button>
+        <button
+          className={styles.auth_intro__login_btn}
+          onClick={() => setAuthStage("login")}
+        >
+          Log in
+        </button>
       </p>
     </div>
   );

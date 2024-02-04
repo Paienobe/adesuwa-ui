@@ -1,0 +1,54 @@
+@use "../../scss/utils/index" as utils;
+
+.countries_dropdown {
+  position: absolute;
+  top: 120%;
+  width: 80%;
+  padding: 0.75rem;
+  background-color: white;
+  border: var(--thin-gray-border);
+  border-radius: utils.getRem(6);
+  min-height: utils.getRem(250);
+  max-height: utils.getRem(250);
+  overflow: hidden;
+
+  &__search_bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: var(--thin-gray-border);
+    border-radius: var(--six-pixel-border-radius);
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+
+    &__input {
+      width: 95%;
+      padding: calc(0.75rem - 0.25rem);
+      border: none;
+    }
+  }
+
+  > div:last-of-type {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-height: calc(250px - 42.5px - 0.75rem);
+    overflow-y: auto;
+
+    > button {
+      display: block;
+      width: 100%;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: transparent;
+      border-radius: var(--six-pixel-border-radius);
+
+      &:hover {
+        background-color: var(--gray-color);
+      }
+    }
+  }
+}
