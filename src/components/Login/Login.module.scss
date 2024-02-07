@@ -1,0 +1,56 @@
+@use "../../scss/utils/index" as utils;
+
+.login {
+  @include utils.centered-flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &__form_holder {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    img {
+      width: 50%;
+    }
+
+    form {
+      width: 45%;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      border: var(--thin-gray-border);
+      border-radius: utils.getRem(6);
+
+      button:not([type="button"]),
+      h2 {
+        grid-column: 1/-1;
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      button[type="button"] {
+        padding: 0.75rem;
+        background-color: transparent;
+        border: var(--thin-gray-border);
+        border-color: var(--primary-color);
+        border-radius: utils.getRem(6);
+
+        &:hover {
+          background-color: var(--transparent-primary);
+        }
+      }
+
+      button[type="button"].user_type_btn {
+        background-color: var(--transparent-primary);
+      }
+
+      .user_type_btn {
+        background-color: var(--transparent-primary);
+      }
+    }
+  }
+}

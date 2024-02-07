@@ -1,6 +1,6 @@
 import { useAuthContext } from "../../context/AuthContext/AuthContext";
 import styles from "./Registration.module.scss";
-import registerSvg from "../../assets/register_illyustration.svg";
+import registerSvg from "../../assets/Placeholder-bro.svg";
 import SolidButton from "../SolidButton/SolidButton";
 import { GoChevronDown } from "react-icons/go";
 import CountriesDropDown from "../CountriesDropDown/CountriesDropDown";

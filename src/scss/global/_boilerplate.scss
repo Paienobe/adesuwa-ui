@@ -36,5 +36,5 @@ input {
 }
 
 input:focus {
-  outline: none;
+  outline: var(--thin-primary-color-border);
 }
