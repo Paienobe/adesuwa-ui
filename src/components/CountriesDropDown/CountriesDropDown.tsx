@@ -3,7 +3,8 @@ import styles from "./CountriesDropdown.module.scss";
 import { GoCheck } from "react-icons/go";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { CountriesDropDownProps } from "./type";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 const CountriesDropDown = ({
   selectedCountry,
@@ -13,6 +14,8 @@ const CountriesDropDown = ({
   const allCountries = getNames();
   const [visibleCountries, setVisibleCountries] = useState(allCountries);
 
+  const dropdownRef = useRef(null);
+
   const filterCountries = (query: string) => {
     const filtered = allCountries.filter((country) => {
       return country.toLowerCase().includes(query.toLowerCase());
@@ -20,8 +23,10 @@ const CountriesDropDown = ({
     setVisibleCountries(filtered);
   };
 
+  useOutsideClick(dropdownRef, setShowCountries, "hook_class");
+
   return (
-    <div className={styles.countries_dropdown}>
+    <div className={styles.countries_dropdown} ref={dropdownRef}>
       <div className={styles.countries_dropdown__search_bar}>
         <BiSearchAlt2 size={25} />
         <input

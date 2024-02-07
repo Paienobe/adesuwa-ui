@@ -52,6 +52,10 @@
       justify-content: space-between;
       padding: 0.75rem;
       font-size: utils.getRem(14);
+
+      > p {
+        z-index: -1;
+      }
     }
   }
 }
