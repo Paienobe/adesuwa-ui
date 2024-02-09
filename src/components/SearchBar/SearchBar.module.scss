@@ -1,0 +1,22 @@
+.search_bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: var(--thin-gray-border);
+  border-radius: var(--six-pixel-border-radius);
+  padding: 0.25rem;
+
+  &:focus-within {
+    outline: var(--thin-primary-color-border);
+  }
+
+  &__input {
+    width: 95%;
+    padding: calc(0.75rem - 0.25rem);
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

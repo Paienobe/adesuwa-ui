@@ -1,0 +1,17 @@
+@use "../../scss/utils/index" as utils;
+
+.vendor {
+  &__metadata {
+    margin-bottom: 2rem;
+    > p {
+      padding: 1rem;
+    }
+  }
+
+  &__main_body {
+    padding: 1rem;
+    padding-top: 0;
+    display: flex;
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,14 @@
+@use "../../scss/utils/index" as utils;
+
+.progress_bar {
+  width: 100%;
+  min-height: utils.getRem(10);
+  background-color: var(--gray-color);
+  border-radius: utils.getRem(6);
+
+  > div {
+    background-color: var(--primary-color);
+    border-radius: utils.getRem(6);
+    min-height: utils.getRem(10);
+  }
+}

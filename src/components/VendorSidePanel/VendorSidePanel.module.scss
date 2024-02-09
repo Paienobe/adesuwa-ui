@@ -1,0 +1,27 @@
+@use "../../scss/utils/index" as utils;
+
+.vendor_side_panel {
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 1rem;
+  left: 1rem;
+  height: fit-content;
+
+  > button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    border-radius: utils.getRem(6);
+    border: var(--thin-gray-border);
+    gap: 1rem;
+
+    &:hover {
+      background-color: var(--transparent-primary);
+    }
+  }
+}

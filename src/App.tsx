@@ -5,6 +5,8 @@ import Auth from "./pages/Auth/Auth";
 import { AuthContextProvider } from "./context/AuthContext/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Vendor from "./pages/Vendor/Vendor";
+import { VendorPageProvider } from "./context/VendorPageContext/VendorPageContext";
 
 function App() {
   return (
@@ -15,6 +17,10 @@ function App() {
           <Route
             path="/auth"
             element={<AuthContextProvider children={<Auth />} />}
+          />
+          <Route
+            path="/vendor-dashboard"
+            element={<VendorPageProvider children={<Vendor />} />}
           />
         </Routes>
       </Router>

@@ -11,6 +11,7 @@ import {
   registerVendor,
 } from "../../services/api/registration";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const { userType } = useAuthContext();
@@ -32,6 +33,8 @@ const Registration = () => {
     setRegData({ ...regData, country });
   }, [country]);
 
+  const navigate = useNavigate();
+
   return (
     <div className={styles.registration}>
       <div className={styles.registration__form_holder}>
@@ -45,6 +48,7 @@ const Registration = () => {
                 })
               : registerVendor(regData).then(() => {
                   toast.success("Vendor created");
+                  navigate("/vendor");
                 });
           }}
         >
