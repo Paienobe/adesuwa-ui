@@ -1,0 +1,108 @@
+@use "../../scss/utils/index" as utils;
+
+.product_modal {
+  @include utils.modal_parent;
+
+  > form {
+    width: 55%;
+    background-color: white;
+    border-radius: utils.getRem(6);
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1rem;
+
+    > h2 {
+      grid-column: 1/-1;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    > div:first-of-type {
+      @include utils.centered-flex;
+      flex-direction: column;
+      border: var(--thin-gray-border);
+      border-radius: utils.getRem(6);
+      cursor: pointer;
+      overflow: hidden;
+
+      &:hover {
+        svg,
+        p {
+          color: var(--gray-color);
+        }
+      }
+
+      > p {
+        font-size: utils.getRem(12);
+        margin-top: 1rem;
+      }
+
+      svg {
+        color: var(--sharp-gray);
+      }
+    }
+
+    > div:last-of-type {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+
+      > textarea {
+        grid-column: 1/-1;
+        resize: none;
+
+        &::placeholder {
+          font-family: var(--primary-font);
+        }
+      }
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    button {
+      grid-column: 1/-1;
+    }
+  }
+
+  &__preview_container {
+    position: relative;
+
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    > div {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+      background-color: var(--primary-color);
+      color: white;
+      width: utils.getRem(20);
+      height: utils.getRem(20);
+      @include utils.centered-flex;
+      border-radius: 50%;
+      font-size: utils.getRem(12);
+    }
+  }
+
+  &__category_dropdown_parent {
+    grid-column: 1/-1;
+    border: var(--thin-gray-border);
+    border-radius: utils.getRem(6);
+    position: relative;
+    cursor: pointer;
+
+    > div:first-of-type {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      font-size: utils.getRem(14);
+    }
+  }
+}

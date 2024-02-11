@@ -2,6 +2,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import styles from "./Inventory.module.scss";
 import { MdOutlineAdd } from "react-icons/md";
 import SearchBar from "../SearchBar/SearchBar";
+import AddProductModal from "../AddProductModal/AddProductModal";
 
 const Inventory = () => {
   return (
@@ -27,6 +28,7 @@ const Inventory = () => {
       <ProductCard />
       <ProductCard />
       <ProductCard />
+      <AddProductModal />
     </div>
   );
 };

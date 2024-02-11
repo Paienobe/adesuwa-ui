@@ -24,7 +24,7 @@ function App() {
           />
         </Routes>
       </Router>
-      <ToastContainer />
+      <ToastContainer limit={1} />
     </>
   );
 }
