@@ -12,9 +12,13 @@ import {
 } from "../../services/api/registration";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { backendInstance } from "../../services/axios/backendInstance";
+import { useVendorPageContext } from "../../context/VendorPageContext/VendorPageContext";
 
 const Registration = () => {
   const { userType } = useAuthContext();
+  const { setVendor } = useVendorPageContext();
+
   const [regData, setRegData] = useState(defaultRegData);
   const [country, setCountry] = useState("Select your country");
   const [showCountries, setShowCountries] = useState(false);
@@ -43,12 +47,18 @@ const Registration = () => {
           onSubmit={(e) => {
             e.preventDefault();
             userType === "customer"
-              ? registerCustomer(regData).then(() => {
+              ? registerCustomer(regData).then((result) => {
                   toast.success("Customer created");
+                  backendInstance.defaults.headers.common["Authorization"] = "";
                 })
-              : registerVendor(regData).then(() => {
+              : registerVendor(regData).then((result) => {
+                  const { access_token, vendor } = result;
+                  setVendor(vendor);
+                  backendInstance.defaults.headers.common[
+                    "Authorization"
+                  ] = `Bearer ${access_token}`;
                   toast.success("Vendor created");
-                  navigate("/vendor");
+                  navigate("/vendor-dashboard");
                 });
           }}
         >

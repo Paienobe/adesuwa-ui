@@ -1,5 +1,5 @@
-import { ReactNode, createContext, useContext } from "react";
-import { VendorPageContextType } from "./types";
+import { ReactNode, createContext, useContext, useState } from "react";
+import { Vendor, VendorPageContextType } from "./types";
 
 const VendorPageContext = createContext({} as VendorPageContextType);
 
@@ -8,8 +8,9 @@ type Props = {
 };
 
 export const VendorPageProvider = ({ children }: Props) => {
+  const [vendor, setVendor] = useState({} as Vendor);
   return (
-    <VendorPageContext.Provider value={{}}>
+    <VendorPageContext.Provider value={{ vendor, setVendor }}>
       {children}
     </VendorPageContext.Provider>
   );

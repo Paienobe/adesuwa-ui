@@ -5,5 +5,4 @@ export const defaultProductData = {
   category: "",
   discount: "",
   description: "",
-  file_length: 0,
 };

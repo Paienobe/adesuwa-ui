@@ -4,6 +4,7 @@ import SolidButton from "../SolidButton/SolidButton";
 import { useAuthContext } from "../../context/AuthContext/AuthContext";
 import { useState } from "react";
 import { loginUser } from "../../services/api/login";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { userType, setUserType } = useAuthContext();
@@ -13,6 +14,8 @@ const Login = () => {
     setLoginData({ ...loginData, [field]: value });
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className={styles.login}>
       <div className={styles.login__form_holder}>
@@ -20,7 +23,11 @@ const Login = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            loginUser(loginData, userType!);
+            loginUser(loginData, userType!).then(() => {
+              if (userType == "vendor") {
+                navigate("/vendor-dashboard");
+              }
+            });
           }}
         >
           <h2>Log in to Adesuwa</h2>

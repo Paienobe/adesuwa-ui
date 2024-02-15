@@ -6,6 +6,8 @@ import { defaultProductData } from "./constants";
 import { checkNumberInputs } from "../../utils/checkNumberInputs";
 import Dropdown from "../Dropdown/Dropdown";
 import { productCategories } from "../../constants";
+import { parseProductData } from "../../utils/parseProductData";
+import { createProduct } from "../../services/api/product";
 
 const AddProductModal = () => {
   const fileInputRef = useRef(null);
@@ -31,11 +33,26 @@ const AddProductModal = () => {
     }
   };
 
+  const handleCreateProduct = () => {
+    const pics: { [x: string]: File } = {};
+    images.forEach((image, index) => {
+      pics[`file_${index}`] = image;
+    });
+    const data = {
+      ...parseProductData(productData),
+      file_length: images.length,
+      ...pics,
+    };
+    createProduct(data);
+  };
+
   return (
     <div className={styles.product_modal}>
       <form
         onSubmit={(e) => {
           e.preventDefault();
+
+          handleCreateProduct();
         }}
       >
         <h2>Add New Product</h2>
@@ -114,7 +131,7 @@ const AddProductModal = () => {
             required
           ></textarea>
         </div>
-        <SolidButton text="Submit" />
+        <SolidButton text="Create" />
       </form>
     </div>
   );
