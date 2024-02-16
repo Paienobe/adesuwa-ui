@@ -2,8 +2,6 @@ import { useAuthContext } from "../../context/AuthContext/AuthContext";
 import styles from "./Registration.module.scss";
 import registerSvg from "../../assets/Placeholder-bro.svg";
 import SolidButton from "../SolidButton/SolidButton";
-import { GoChevronDown } from "react-icons/go";
-import CountriesDropDown from "../CountriesDropDown/CountriesDropDown";
 import { useEffect, useState } from "react";
 import { defaultRegData } from "../../pages/Auth/contants";
 import {
@@ -12,16 +10,17 @@ import {
 } from "../../services/api/registration";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { backendInstance } from "../../services/axios/backendInstance";
-import { useVendorPageContext } from "../../context/VendorPageContext/VendorPageContext";
+import { useVendorContext } from "../../context/VendorContext/VendorContext";
+import { updateBearerToken } from "../../utils/updateBearerToken";
+import Dropdown from "../Dropdown/Dropdown";
+import { getNames } from "country-list";
 
 const Registration = () => {
   const { userType } = useAuthContext();
-  const { setVendor } = useVendorPageContext();
+  const { setVendor } = useVendorContext();
 
   const [regData, setRegData] = useState(defaultRegData);
   const [country, setCountry] = useState("Select your country");
-  const [showCountries, setShowCountries] = useState(false);
 
   const headers = {
     vendor: "Sign up to sell your amazing products",
@@ -38,6 +37,7 @@ const Registration = () => {
   }, [country]);
 
   const navigate = useNavigate();
+  const allCountries = getNames();
 
   return (
     <div className={styles.registration}>
@@ -47,17 +47,13 @@ const Registration = () => {
           onSubmit={(e) => {
             e.preventDefault();
             userType === "customer"
-              ? registerCustomer(regData).then((result) => {
+              ? registerCustomer(regData).then(() => {
                   toast.success("Customer created");
-                  backendInstance.defaults.headers.common["Authorization"] = "";
                 })
               : registerVendor(regData).then((result) => {
                   const { access_token, vendor } = result;
+                  updateBearerToken(access_token);
                   setVendor(vendor);
-                  backendInstance.defaults.headers.common[
-                    "Authorization"
-                  ] = `Bearer ${access_token}`;
-                  toast.success("Vendor created");
                   navigate("/vendor-dashboard");
                 });
           }}
@@ -91,22 +87,14 @@ const Registration = () => {
             onChange={(e) => updateRegData("phone_number", e.target.value)}
             required
           />
-          <div className={styles.registration__country_dropdown_parent}>
-            <div
-              className="hook_class"
-              onClick={() => setShowCountries(!showCountries)}
-            >
-              <p>{country}</p>
-              <GoChevronDown />
-            </div>
-            {showCountries && (
-              <CountriesDropDown
-                selectedCountry={country}
-                setSelectedCountry={setCountry}
-                setShowCountries={setShowCountries}
-              />
-            )}
-          </div>
+          <Dropdown
+            defaultText="Select your country"
+            options={allCountries}
+            searchBarPlaceholder="Search country"
+            selectedOption={country}
+            setSelectedOption={setCountry}
+          />
+
           {userType == "vendor" && (
             <input
               type="text"

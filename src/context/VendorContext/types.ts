@@ -1,4 +1,4 @@
-export type VendorPageContextType = {
+export type VendorContextType = {
   vendor: Vendor;
   setVendor: React.Dispatch<React.SetStateAction<Vendor>>;
 };

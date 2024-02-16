@@ -6,23 +6,22 @@ import { AuthContextProvider } from "./context/AuthContext/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Vendor from "./pages/Vendor/Vendor";
-import { VendorPageProvider } from "./context/VendorPageContext/VendorPageContext";
+import { VendorProvider } from "./context/VendorContext/VendorContext";
 
 function App() {
   return (
     <>
       <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/auth"
-            element={<AuthContextProvider children={<Auth />} />}
-          />
-          <Route
-            path="/vendor-dashboard"
-            element={<VendorPageProvider children={<Vendor />} />}
-          />
-        </Routes>
+        <VendorProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/auth"
+              element={<AuthContextProvider children={<Auth />} />}
+            />
+            <Route path="/vendor-dashboard" element={<Vendor />} />
+          </Routes>
+        </VendorProvider>
       </Router>
       <ToastContainer limit={1} />
     </>

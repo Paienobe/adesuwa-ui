@@ -1,4 +1,3 @@
-import axios from "axios";
 import { backendInstance } from "../axios/backendInstance";
 
 type Product = {
@@ -15,7 +14,7 @@ type FileType = { [x: string]: File };
 
 type ProductData = Product & FileType;
 
-export const createProduct = async (data: any) => {
+export const createProduct = async (data: ProductData) => {
   try {
     const request = await backendInstance("/product", {
       method: "POST",
