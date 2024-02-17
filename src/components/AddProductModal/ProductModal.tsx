@@ -8,9 +8,13 @@ import Dropdown from "../Dropdown/Dropdown";
 import { productCategories } from "../../constants";
 import { parseProductData } from "../../utils/parseProductData";
 import { createProduct } from "../../services/api/product";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { ProductModalProps } from "./types";
 
-const AddProductModal = () => {
+const ProductModal = ({ setShowModal }: ProductModalProps) => {
   const fileInputRef = useRef(null);
+  const formRef = useRef(null);
+
   const [productData, setProductData] = useState(defaultProductData);
   const [images, setImages] = useState<File[]>([]);
   const [category, setCategory] = useState("");
@@ -46,12 +50,15 @@ const AddProductModal = () => {
     createProduct(data);
   };
 
+  useOutsideClick(formRef, setShowModal, styles.product_modal__form);
+
   return (
     <div className={styles.product_modal}>
       <form
+        className={styles.product_modal__form}
+        ref={formRef}
         onSubmit={(e) => {
           e.preventDefault();
-
           handleCreateProduct();
         }}
       >
@@ -137,4 +144,4 @@ const AddProductModal = () => {
   );
 };
 
-export default AddProductModal;
+export default ProductModal;

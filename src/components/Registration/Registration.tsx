@@ -20,7 +20,7 @@ const Registration = () => {
   const { setVendor } = useVendorContext();
 
   const [regData, setRegData] = useState(defaultRegData);
-  const [country, setCountry] = useState("Select your country");
+  const [country, setCountry] = useState("");
 
   const headers = {
     vendor: "Sign up to sell your amazing products",

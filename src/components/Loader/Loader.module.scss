@@ -1,0 +1,5 @@
+@use "../../scss/utils/index" as utils;
+
+.loader {
+  @include utils.useRotate;
+}

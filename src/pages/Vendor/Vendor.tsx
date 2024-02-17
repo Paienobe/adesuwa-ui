@@ -2,8 +2,21 @@ import VendorBanner from "../../components/VendorBanner/VendorBanner";
 import styles from "./vendor.module.scss";
 import VendorSidePanel from "../../components/VendorSidePanel/VendorSidePanel";
 import VendorMain from "../../components/VendorMain/VendorMain";
+import { useVendorContext } from "../../context/VendorContext/VendorContext";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Vendor = () => {
+  const navigate = useNavigate();
+  const { vendor } = useVendorContext();
+
+  useEffect(() => {
+    console.log(vendor);
+    if (!vendor) {
+      navigate("/");
+    }
+  }, [vendor]);
+
   return (
     <div className={styles.vendor}>
       <section className={styles.vendor__metadata}>

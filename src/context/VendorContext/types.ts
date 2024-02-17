@@ -1,6 +1,6 @@
 export type VendorContextType = {
-  vendor: Vendor;
-  setVendor: React.Dispatch<React.SetStateAction<Vendor>>;
+  vendor: Vendor | null;
+  setVendor: React.Dispatch<React.SetStateAction<Vendor | null>>;
 };
 
 export type Vendor = {

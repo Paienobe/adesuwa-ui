@@ -2,15 +2,17 @@ import ProductCard from "../ProductCard/ProductCard";
 import styles from "./Inventory.module.scss";
 import { MdOutlineAdd } from "react-icons/md";
 import SearchBar from "../SearchBar/SearchBar";
-import AddProductModal from "../AddProductModal/AddProductModal";
+import ProductModal from "../AddProductModal/ProductModal";
+import { useState } from "react";
 
 const Inventory = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className={styles.inventory}>
       <section className={styles.inventory__header}>
         <p>Your products</p>
         <SearchBar queryHandler={() => {}} placeholder="Search products" />
-        <button>
+        <button onClick={() => setShowModal(!showModal)}>
           <MdOutlineAdd /> Add Item
         </button>
       </section>
@@ -22,13 +24,7 @@ const Inventory = () => {
       <ProductCard />
       <ProductCard />
       <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <AddProductModal />
+      {showModal && <ProductModal setShowModal={setShowModal} />}
     </div>
   );
 };

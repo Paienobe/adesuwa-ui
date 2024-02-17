@@ -7,22 +7,29 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Vendor from "./pages/Vendor/Vendor";
 import { VendorProvider } from "./context/VendorContext/VendorContext";
+import { RefreshContextProvider } from "./context/RefreshContext/RefreshContext";
+import { CustomerProvider } from "./context/CustomerContext/CustomerContext";
 
 function App() {
   return (
     <>
-      <Router>
+      <CustomerProvider>
         <VendorProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route
-              path="/auth"
-              element={<AuthContextProvider children={<Auth />} />}
-            />
-            <Route path="/vendor-dashboard" element={<Vendor />} />
-          </Routes>
+          <RefreshContextProvider>
+            <Router>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route
+                  path="/auth"
+                  element={<AuthContextProvider children={<Auth />} />}
+                />
+                <Route path="/vendor-dashboard" element={<Vendor />} />
+              </Routes>
+            </Router>
+          </RefreshContextProvider>
         </VendorProvider>
-      </Router>
+      </CustomerProvider>
+
       <ToastContainer limit={1} />
     </>
   );

@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const VendorProvider = ({ children }: Props) => {
-  const [vendor, setVendor] = useState({} as Vendor);
+  const [vendor, setVendor] = useState<Vendor | null>(null);
   return (
     <VendorContext.Provider value={{ vendor, setVendor }}>
       {children}
