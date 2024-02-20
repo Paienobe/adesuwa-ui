@@ -7,17 +7,22 @@ import { checkNumberInputs } from "../../utils/checkNumberInputs";
 import Dropdown from "../Dropdown/Dropdown";
 import { productCategories } from "../../constants";
 import { parseProductData } from "../../utils/parseProductData";
-import { createProduct } from "../../services/api/product";
+import { ProductData, createProduct } from "../../services/api/product";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { ProductModalProps } from "./types";
+import { useVendorContext } from "../../context/VendorContext/VendorContext";
 
 const ProductModal = ({ setShowModal }: ProductModalProps) => {
+  const { inventory, setInventory } = useVendorContext();
+
   const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
   const [productData, setProductData] = useState(defaultProductData);
   const [images, setImages] = useState<File[]>([]);
   const [category, setCategory] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const categoryOptions = productCategories.map((category) => {
     return category.name;
   });
@@ -44,10 +49,17 @@ const ProductModal = ({ setShowModal }: ProductModalProps) => {
     });
     const data = {
       ...parseProductData(productData),
+      category,
       file_length: images.length,
       ...pics,
     };
-    createProduct(data);
+    setIsLoading(true);
+    createProduct(data as ProductData)
+      .then((result) => {
+        setShowModal(false);
+        setInventory([...inventory, result]);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   useOutsideClick(formRef, setShowModal, styles.product_modal__form);
@@ -138,7 +150,7 @@ const ProductModal = ({ setShowModal }: ProductModalProps) => {
             required
           ></textarea>
         </div>
-        <SolidButton text="Create" />
+        <SolidButton text="Create" isLoading={isLoading} />
       </form>
     </div>
   );

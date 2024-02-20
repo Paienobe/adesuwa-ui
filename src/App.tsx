@@ -13,10 +13,10 @@ import { CustomerProvider } from "./context/CustomerContext/CustomerContext";
 function App() {
   return (
     <>
-      <CustomerProvider>
-        <VendorProvider>
-          <RefreshContextProvider>
-            <Router>
+      <Router>
+        <CustomerProvider>
+          <VendorProvider>
+            <RefreshContextProvider>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route
@@ -25,10 +25,10 @@ function App() {
                 />
                 <Route path="/vendor-dashboard" element={<Vendor />} />
               </Routes>
-            </Router>
-          </RefreshContextProvider>
-        </VendorProvider>
-      </CustomerProvider>
+            </RefreshContextProvider>
+          </VendorProvider>
+        </CustomerProvider>
+      </Router>
 
       <ToastContainer limit={1} />
     </>

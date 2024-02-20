@@ -10,8 +10,10 @@ const Vendor = () => {
   const navigate = useNavigate();
   const { vendor } = useVendorContext();
 
+  // console.log(searchParams.get("lang"));
+  // setSearchParams({ lang: "gg" });
+
   useEffect(() => {
-    console.log(vendor);
     if (!vendor) {
       navigate("/");
     }

@@ -12,7 +12,7 @@ type Product = {
 
 type FileType = { [x: string]: File };
 
-type ProductData = Product & FileType;
+export type ProductData = Product & FileType;
 
 export const createProduct = async (data: ProductData) => {
   try {
@@ -24,6 +24,16 @@ export const createProduct = async (data: ProductData) => {
       withCredentials: true,
       data,
     });
+    return request.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Something went wrong");
+  }
+};
+
+export const fetchAllVendorProducts = async () => {
+  try {
+    const request = await backendInstance.get("/all-products");
     return request.data;
   } catch (error) {
     throw new Error("Something went wrong");

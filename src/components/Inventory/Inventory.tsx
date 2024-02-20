@@ -3,10 +3,21 @@ import styles from "./Inventory.module.scss";
 import { MdOutlineAdd } from "react-icons/md";
 import SearchBar from "../SearchBar/SearchBar";
 import ProductModal from "../AddProductModal/ProductModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchAllVendorProducts } from "../../services/api/product";
+import { useVendorContext } from "../../context/VendorContext/VendorContext";
 
 const Inventory = () => {
+  const { inventory, setInventory } = useVendorContext();
+
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    fetchAllVendorProducts().then((result) => {
+      setInventory(result);
+    });
+  }, []);
+
   return (
     <div className={styles.inventory}>
       <section className={styles.inventory__header}>
@@ -16,14 +27,17 @@ const Inventory = () => {
           <MdOutlineAdd /> Add Item
         </button>
       </section>
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
+
+      {inventory.map((product) => {
+        return (
+          <ProductCard
+            key={product.id}
+            product={product}
+            setShowModal={setShowModal}
+          />
+        );
+      })}
+
       {showModal && <ProductModal setShowModal={setShowModal} />}
     </div>
   );

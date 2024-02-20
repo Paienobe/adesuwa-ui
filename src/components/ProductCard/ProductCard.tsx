@@ -1,23 +1,22 @@
 import styles from "./ProductCard.module.scss";
 import { GrEdit } from "react-icons/gr";
+import { ProductCardProps } from "./types";
 
-const ProductCard = () => {
+const ProductCard = ({ product, setShowModal }: ProductCardProps) => {
+  const { images, name, price, amount_available } = product;
   return (
     <div className={styles.product_card}>
       <div className={styles.product_card__image_holder}>
-        <img
-          src="https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iphone13_hero_geo_09142021_inline.jpg.large.jpg"
-          alt=""
-        />
-        <button>
+        <img src={images[0]} alt="" />
+        <button onClick={() => setShowModal(true)}>
           <GrEdit />
         </button>
       </div>
       <div className={styles.product_card__details}>
-        <p>Iphone 13 pro max ultra dynamic super saiyan 3</p>
+        <p>{name}</p>
         <div>
-          <p>$850</p>
-          <p>50pc</p>
+          <p>${price}</p>
+          <p>{amount_available}pc</p>
         </div>
       </div>
     </div>
