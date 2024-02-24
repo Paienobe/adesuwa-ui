@@ -48,3 +48,17 @@ export const deleteProduct = async (productID: string) => {
     throw new Error("Something went wrong");
   }
 };
+
+export const updateProduct = async (data: ProductData) => {
+  try {
+    const request = await backendInstance("/product", {
+      method: "PUT",
+      headers: { "Content-Type": "multipart/form-data" },
+      data,
+    });
+    return request.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Something went wrong");
+  }
+};

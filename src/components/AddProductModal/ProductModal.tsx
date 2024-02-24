@@ -6,7 +6,11 @@ import { checkNumberInputs } from "../../utils/checkNumberInputs";
 import Dropdown from "../Dropdown/Dropdown";
 import { productCategories } from "../../constants";
 import { parseProductData } from "../../utils/parseProductData";
-import { ProductData, createProduct } from "../../services/api/product";
+import {
+  ProductData,
+  createProduct,
+  updateProduct,
+} from "../../services/api/product";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 import { ProductModalProps } from "./types";
 import { useVendorContext } from "../../context/VendorContext/VendorContext";
@@ -48,7 +52,7 @@ const ProductModal = ({ setShowModal }: ProductModalProps) => {
     }
   };
 
-  const handleCreateProduct = () => {
+  const getFormData = () => {
     const pics: { [x: string]: File } = {};
     images.forEach((image, index) => {
       pics[`file_${index}`] = image;
@@ -59,10 +63,25 @@ const ProductModal = ({ setShowModal }: ProductModalProps) => {
       file_length: images.length,
       ...pics,
     };
+    return data;
+  };
+
+  const handleCreateOrEdit = () => {
     setIsLoading(true);
-    createProduct(data as ProductData)
+    const productAction = isEditing
+      ? updateProduct(getFormData() as ProductData)
+      : createProduct(getFormData() as ProductData);
+
+    productAction
       .then((result) => {
-        setInventory([...inventory, result]);
+        if (!isEditing) {
+          setInventory([...inventory, result]);
+        } else {
+          const filteredInventory = inventory.filter((item) => {
+            return item.id != result.id;
+          });
+          setInventory([...filteredInventory, result]);
+        }
       })
       .finally(() => {
         setIsLoading(false);
@@ -80,7 +99,7 @@ const ProductModal = ({ setShowModal }: ProductModalProps) => {
         ref={formRef}
         onSubmit={(e) => {
           e.preventDefault();
-          handleCreateProduct();
+          handleCreateOrEdit();
         }}
       >
         <h2>{!isEditing ? "Add New " : "Update "}Product</h2>
@@ -94,7 +113,7 @@ const ProductModal = ({ setShowModal }: ProductModalProps) => {
               multiple
               ref={fileInputRef}
               onChange={(e) => handleImageChanges(e)}
-              required
+              required={!isEditing}
             />
           </div>
         ) : (

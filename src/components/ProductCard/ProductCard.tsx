@@ -15,32 +15,32 @@ const ProductCard = ({ product, setShowModal }: ProductCardProps) => {
     useVendorContext();
   const { setAction } = useGlobalContext();
 
+  const handleDeleteAction = () => {
+    setAction(actions.delete);
+    actions.delete.actionFunc = () =>
+      deleteProduct(product.id).then(() => {
+        const updatedInventory = inventory.filter((item) => {
+          return item.id != product.id;
+        });
+        setInventory(updatedInventory);
+      });
+  };
+
+  const handleEdit = () => {
+    setShowModal(true);
+    setIsEditing(true);
+    setCategory(product.category);
+    setProductData(product as unknown as DefaultProductData);
+  };
+
   return (
     <div className={styles.product_card}>
       <div className={styles.product_card__image_holder}>
         <img src={images[0]} alt="" />
-        <button
-          onClick={() => {
-            setShowModal(true);
-            setIsEditing(true);
-            setCategory(product.category);
-            setProductData(product as unknown as DefaultProductData);
-          }}
-        >
+        <button onClick={handleEdit}>
           <GrEdit />
         </button>
-        <button
-          onClick={() => {
-            setAction(actions.delete);
-            actions.delete.actionFunc = () =>
-              deleteProduct(product.id).then(() => {
-                const updatedInventory = inventory.filter((item) => {
-                  return item.id != product.id;
-                });
-                setInventory(updatedInventory);
-              });
-          }}
-        >
+        <button onClick={handleDeleteAction}>
           <RiDeleteBinLine />
         </button>
       </div>
