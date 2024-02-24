@@ -8,7 +8,7 @@ import { fetchAllVendorProducts } from "../../services/api/product";
 import { useVendorContext } from "../../context/VendorContext/VendorContext";
 
 const Inventory = () => {
-  const { inventory, setInventory } = useVendorContext();
+  const { inventory, setInventory, resetProductData } = useVendorContext();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -17,6 +17,10 @@ const Inventory = () => {
       setInventory(result);
     });
   }, []);
+
+  useEffect(() => {
+    !showModal && resetProductData();
+  }, [showModal]);
 
   return (
     <div className={styles.inventory}>

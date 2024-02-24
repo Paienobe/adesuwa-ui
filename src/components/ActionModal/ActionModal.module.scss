@@ -1,0 +1,33 @@
+@use "../../scss/utils/index" as utils;
+
+.action_modal {
+  @include utils.modal_parent;
+
+  &__main {
+    background-color: white;
+    width: 30%;
+    text-align: center;
+    padding: 1rem;
+    border-radius: var(--six-pixel-border-radius);
+
+    > p {
+      margin: 1rem 0;
+    }
+
+    > div {
+      display: flex;
+      gap: 1rem;
+      > button {
+        width: 50%;
+
+        &:last-of-type {
+          background-color: var(--warning-red);
+
+          &:hover {
+            background-color: var(--warning-red-light);
+          }
+        }
+      }
+    }
+  }
+}

@@ -4,8 +4,6 @@
   border: var(--thin-gray-border);
   border-radius: utils.getRem(6);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   height: utils.getRem(300);
   max-height: utils.getRem(300);
 
@@ -33,6 +31,11 @@
       color: white;
       top: 0.5rem;
       right: 0.5rem;
+    }
+
+    > button:last-of-type {
+      top: 3rem;
+      background-color: var(--warning-red);
     }
   }
 

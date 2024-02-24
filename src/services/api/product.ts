@@ -39,3 +39,12 @@ export const fetchAllVendorProducts = async () => {
     throw new Error("Something went wrong");
   }
 };
+
+export const deleteProduct = async (productID: string) => {
+  try {
+    const request = await backendInstance.delete(`/product/${productID}`);
+    return request.data;
+  } catch (error) {
+    throw new Error("Something went wrong");
+  }
+};

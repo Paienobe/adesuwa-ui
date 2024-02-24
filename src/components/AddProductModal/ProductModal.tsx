@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import SolidButton from "../SolidButton/SolidButton";
 import styles from "./AddProductModal.module.scss";
 import { TbCameraPlus } from "react-icons/tb";
-import { defaultProductData } from "./constants";
 import { checkNumberInputs } from "../../utils/checkNumberInputs";
 import Dropdown from "../Dropdown/Dropdown";
 import { productCategories } from "../../constants";
@@ -13,14 +12,21 @@ import { ProductModalProps } from "./types";
 import { useVendorContext } from "../../context/VendorContext/VendorContext";
 
 const ProductModal = ({ setShowModal }: ProductModalProps) => {
-  const { inventory, setInventory } = useVendorContext();
+  const {
+    inventory,
+    setInventory,
+    productData,
+    setProductData,
+    category,
+    setCategory,
+    isEditing,
+    resetProductData,
+  } = useVendorContext();
 
   const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
-  const [productData, setProductData] = useState(defaultProductData);
   const [images, setImages] = useState<File[]>([]);
-  const [category, setCategory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const categoryOptions = productCategories.map((category) => {
@@ -56,10 +62,13 @@ const ProductModal = ({ setShowModal }: ProductModalProps) => {
     setIsLoading(true);
     createProduct(data as ProductData)
       .then((result) => {
-        setShowModal(false);
         setInventory([...inventory, result]);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsLoading(false);
+        resetProductData();
+        setShowModal(false);
+      });
   };
 
   useOutsideClick(formRef, setShowModal, styles.product_modal__form);
@@ -74,11 +83,11 @@ const ProductModal = ({ setShowModal }: ProductModalProps) => {
           handleCreateProduct();
         }}
       >
-        <h2>Add New Product</h2>
+        <h2>{!isEditing ? "Add New " : "Update "}Product</h2>
         {!images.length ? (
           <div onClick={handleImageClick}>
             <TbCameraPlus size={50} />
-            <p>Add product images</p>
+            <p>{!isEditing ? "Add " : "Change "} product images</p>
             <input
               type="file"
               accept="image/*"
@@ -150,7 +159,10 @@ const ProductModal = ({ setShowModal }: ProductModalProps) => {
             required
           ></textarea>
         </div>
-        <SolidButton text="Create" isLoading={isLoading} />
+        <SolidButton
+          text={isEditing ? "Update Product" : "Create Product"}
+          isLoading={isLoading}
+        />
       </form>
     </div>
   );

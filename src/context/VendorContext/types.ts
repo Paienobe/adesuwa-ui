@@ -7,6 +7,13 @@ export type VendorContextType = {
   setSearchParams: SetURLSearchParams;
   inventory: InventoryItem[];
   setInventory: React.Dispatch<React.SetStateAction<InventoryItem[]>>;
+  productData: DefaultProductData;
+  setProductData: React.Dispatch<React.SetStateAction<DefaultProductData>>;
+  category: string;
+  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  isEditing: boolean;
+  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  resetProductData: () => void;
 };
 
 export type Vendor = {
@@ -28,4 +35,13 @@ export type InventoryItem = {
   category: string;
   discount: number;
   vendor_id: string;
+};
+
+export type DefaultProductData = {
+  name: string;
+  price: string;
+  amount_available: string;
+  category: string;
+  discount: string;
+  description: string;
 };
