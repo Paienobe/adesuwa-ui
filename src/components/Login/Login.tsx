@@ -5,9 +5,12 @@ import { useAuthContext } from "../../context/AuthContext/AuthContext";
 import { useState } from "react";
 import { loginUser } from "../../services/api/login";
 import { useNavigate } from "react-router-dom";
+import { updateBearerToken } from "../../utils/updateBearerToken";
+import { useVendorContext } from "../../context/VendorContext/VendorContext";
 
 const Login = () => {
   const { userType, setUserType } = useAuthContext();
+  const { setVendor } = useVendorContext();
   const [loginData, setLoginData] = useState({ email: "", password: "" });
 
   const updateLoginData = (field: string, value: string) => {
@@ -23,9 +26,12 @@ const Login = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            loginUser(loginData, userType!).then(() => {
+            loginUser(loginData, userType!).then((result) => {
+              const { access_token, data } = result;
+              updateBearerToken(access_token);
               if (userType == "vendor") {
                 navigate("/vendor-dashboard");
+                setVendor(data);
               }
             });
           }}

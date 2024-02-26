@@ -30,7 +30,7 @@ function App() {
         </CustomerProvider>
       </Router>
 
-      <ToastContainer limit={1} />
+      <ToastContainer />
     </>
   );
 }

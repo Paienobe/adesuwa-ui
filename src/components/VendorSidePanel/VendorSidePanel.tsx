@@ -6,9 +6,15 @@ import { PiUserRectangleLight } from "react-icons/pi";
 import { BsShop } from "react-icons/bs";
 import { useVendorContext } from "../../context/VendorContext/VendorContext";
 import { useEffect } from "react";
+import { cancelRefresh } from "../../services/api/refresh";
+import { useNavigate } from "react-router-dom";
+import { actions } from "../../context/GlobalContext/constants";
+import { useGlobalContext } from "../../context/GlobalContext/GlobalContext";
 
 const VendorSidePanel = () => {
+  const navigate = useNavigate();
   const { searchParams, setSearchParams } = useVendorContext();
+  const { setAction } = useGlobalContext();
   const currentSection = searchParams.get("section");
 
   const panelOptions = [
@@ -24,6 +30,12 @@ const VendorSidePanel = () => {
     }
   }, []);
 
+  const handleLogout = () => {
+    return cancelRefresh().then(() => {
+      navigate("/auth");
+    });
+  };
+
   return (
     <div className={styles.vendor_side_panel}>
       {panelOptions.map((option) => {
@@ -35,7 +47,13 @@ const VendorSidePanel = () => {
                 ? styles.vendor_side_panel__selected_section
                 : ""
             }
-            onClick={() => setSearchParams({ section: option.title })}
+            onClick={() => {
+              setSearchParams({ section: option.title });
+              if (option.title == "Logout") {
+                actions.logout.actionFunc = handleLogout;
+                setAction(actions.logout);
+              }
+            }}
           >
             <option.icon size={25} />
             {option.title}

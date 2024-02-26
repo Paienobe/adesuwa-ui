@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { backendInstance } from "../axios/backendInstance";
 
 type LoginDetails = { email: string; password: string };
@@ -12,8 +13,9 @@ export const loginUser = async (data: LoginDetails, userType: string) => {
       headers: { "Content-Type": "application/json" },
     });
     return request.data;
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
+    toast.error(error?.response?.data);
     throw new Error("Something went wrong!");
   }
 };
