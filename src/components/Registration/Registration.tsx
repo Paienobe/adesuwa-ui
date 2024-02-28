@@ -8,16 +8,17 @@ import {
   registerCustomer,
   registerVendor,
 } from "../../services/api/registration";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useVendorContext } from "../../context/VendorContext/VendorContext";
 import { updateBearerToken } from "../../utils/updateBearerToken";
 import Dropdown from "../Dropdown/Dropdown";
 import { getNames } from "country-list";
+import { useCustomerContext } from "../../context/CustomerContext/CustomerContext";
 
 const Registration = () => {
   const { userType } = useAuthContext();
   const { setVendor } = useVendorContext();
+  const { setCustomer } = useCustomerContext();
 
   const [regData, setRegData] = useState(defaultRegData);
   const [country, setCountry] = useState("");
@@ -39,6 +40,22 @@ const Registration = () => {
   const navigate = useNavigate();
   const allCountries = getNames();
 
+  const handleRegistration = () => {
+    const action =
+      userType === "customer"
+        ? registerCustomer(regData)
+        : registerVendor(regData);
+
+    action.then((result) => {
+      const { access_token, data } = result;
+      updateBearerToken(access_token);
+      userType === "customer" ? setCustomer(data) : setVendor(data);
+      userType === "customer"
+        ? navigate("/shop")
+        : navigate("/vendor-dashboard");
+    });
+  };
+
   return (
     <div className={styles.registration}>
       <div className={styles.registration__form_holder}>
@@ -46,16 +63,7 @@ const Registration = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            userType === "customer"
-              ? registerCustomer(regData).then(() => {
-                  toast.success("Customer created");
-                })
-              : registerVendor(regData).then((result) => {
-                  const { access_token, vendor } = result;
-                  updateBearerToken(access_token);
-                  setVendor(vendor);
-                  navigate("/vendor-dashboard");
-                });
+            handleRegistration();
           }}
         >
           <h2>{headers[userType!]}</h2>

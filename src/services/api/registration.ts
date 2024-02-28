@@ -24,7 +24,7 @@ export const registerVendor = async (data: VendorRegData) => {
 
 export const registerCustomer = async (data: CustomerRegData) => {
   try {
-    const request = await backendInstance.post("/register-buyer", data);
+    const request = await backendInstance.post("/register-customer", data);
     return request.data;
   } catch (error) {
     console.error(error);

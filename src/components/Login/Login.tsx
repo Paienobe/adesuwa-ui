@@ -7,10 +7,12 @@ import { loginUser } from "../../services/api/login";
 import { useNavigate } from "react-router-dom";
 import { updateBearerToken } from "../../utils/updateBearerToken";
 import { useVendorContext } from "../../context/VendorContext/VendorContext";
+import { useCustomerContext } from "../../context/CustomerContext/CustomerContext";
 
 const Login = () => {
   const { userType, setUserType } = useAuthContext();
   const { setVendor } = useVendorContext();
+  const { setCustomer } = useCustomerContext();
   const [loginData, setLoginData] = useState({ email: "", password: "" });
 
   const updateLoginData = (field: string, value: string) => {
@@ -32,6 +34,9 @@ const Login = () => {
               if (userType == "vendor") {
                 navigate("/vendor-dashboard");
                 setVendor(data);
+              } else {
+                navigate("/shop");
+                setCustomer(data);
               }
             });
           }}

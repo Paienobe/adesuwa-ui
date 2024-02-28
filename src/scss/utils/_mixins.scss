@@ -4,6 +4,11 @@
   justify-content: center;
 }
 
+@mixin spaced-between-flex {
+  @include centered-flex();
+  justify-content: space-between;
+}
+
 @mixin ellipsis {
   white-space: nowrap;
   overflow: hidden;
