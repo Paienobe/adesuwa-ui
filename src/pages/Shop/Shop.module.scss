@@ -1,0 +1,44 @@
+@use "../../scss/utils/index" as utils;
+
+.shop {
+  width: 85%;
+  margin: auto;
+
+  &__home_grid {
+    display: grid;
+    grid-template-columns: 1fr 4.2fr;
+    gap: 2rem;
+  }
+
+  &__home_grid_ad_container {
+    overflow: hidden;
+    border-radius: var(--six-pixel-border-radius);
+
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      max-height: utils.getRem(386);
+    }
+  }
+
+  &__home_grid_squares {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    border: var(--thin-gray-border);
+
+    > div {
+      border-radius: var(--six-pixel-border-radius);
+      overflow: hidden;
+      height: 50%;
+      background-color: aqua;
+
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}

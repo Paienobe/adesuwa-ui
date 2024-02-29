@@ -2,7 +2,7 @@ import ProductCard from "../ProductCard/ProductCard";
 import styles from "./Inventory.module.scss";
 import { MdOutlineAdd } from "react-icons/md";
 import SearchBar from "../SearchBar/SearchBar";
-import ProductModal from "../AddProductModal/ProductModal";
+import ProductModal from "../ProductModal/ProductModal";
 import { useEffect, useState } from "react";
 import { fetchAllVendorProducts } from "../../services/api/product";
 import { useVendorContext } from "../../context/VendorContext/VendorContext";

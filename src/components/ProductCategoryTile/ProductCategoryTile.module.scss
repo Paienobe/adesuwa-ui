@@ -1,0 +1,22 @@
+@use "../../scss/utils/index" as utils;
+
+.category_tile {
+  border: var(--thin-gray-border);
+  border-radius: var(--six-pixel-border-radius);
+  padding: 0.75rem;
+
+  > button {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    background-color: transparent;
+    border-radius: var(--six-pixel-border-radius);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--transparent-primary);
+    }
+  }
+}

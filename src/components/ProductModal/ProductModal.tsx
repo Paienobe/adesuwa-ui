@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import SolidButton from "../SolidButton/SolidButton";
-import styles from "./AddProductModal.module.scss";
+import styles from "./ProductModal.module.scss";
 import { TbCameraPlus } from "react-icons/tb";
 import { checkNumberInputs } from "../../utils/checkNumberInputs";
 import Dropdown from "../Dropdown/Dropdown";
-import { productCategories } from "../../constants";
+import { productCategories } from "../../constants/product-category";
 import { parseProductData } from "../../utils/parseProductData";
 import {
   ProductData,

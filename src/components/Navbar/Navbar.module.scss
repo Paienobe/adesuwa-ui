@@ -7,14 +7,13 @@
   > section {
     width: 85%;
     margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 2rem;
     padding: 1rem 0;
 
     > div:first-of-type {
-      @include utils.spaced-between-flex;
-      width: 50%;
+      display: flex;
       gap: 1rem;
 
       > div {
@@ -23,7 +22,11 @@
     }
 
     > div:last-of-type {
-      @include utils.spaced-between-flex;
+      display: flex;
+      gap: 1rem;
+      justify-content: end;
+      align-items: end;
+      // @include utils.spaced-between-flex;
       gap: 1rem;
     }
   }

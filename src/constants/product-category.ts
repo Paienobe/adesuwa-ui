@@ -7,7 +7,8 @@ import { CiDumbbell } from "react-icons/ci";
 import { RiShirtFill } from "react-icons/ri";
 import { GoBook } from "react-icons/go";
 import { LuArmchair } from "react-icons/lu";
-import { IoFastFoodOutline } from "react-icons/io5";
+import { LiaBabyCarriageSolid } from "react-icons/lia";
+import { GiLipstick } from "react-icons/gi";
 
 export const productCategories = [
   { id: uuid(), name: "Phones & Tablet", icon: MdOutlinePhoneIphone },
@@ -18,5 +19,6 @@ export const productCategories = [
   { id: uuid(), name: "Fashion", icon: RiShirtFill },
   { id: uuid(), name: "Books", icon: GoBook },
   { id: uuid(), name: "Furniture", icon: LuArmchair },
-  { id: uuid(), name: "Food & Drinks", icon: IoFastFoodOutline },
+  { id: uuid(), name: "Baby Products", icon: LiaBabyCarriageSolid },
+  { id: uuid(), name: "Health & Beauty", icon: GiLipstick },
 ];

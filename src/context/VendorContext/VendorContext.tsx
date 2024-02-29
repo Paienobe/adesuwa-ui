@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from "react";
 import { InventoryItem, Vendor, VendorContextType } from "./types";
 import { useSearchParams } from "react-router-dom";
-import { defaultProductData } from "../../components/AddProductModal/constants";
+import { defaultProductData } from "../../components/ProductModal/constants";
 
 const VendorContext = createContext({} as VendorContextType);
 

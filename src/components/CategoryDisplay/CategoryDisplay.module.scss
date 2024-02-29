@@ -1,0 +1,44 @@
+@use "../../scss/utils/index" as utils;
+
+.category_display {
+  border-radius: var(--six-pixel-border-radius);
+  overflow: hidden;
+  margin-top: 1rem;
+
+  > div:first-of-type {
+    font-size: 1.5rem;
+    background-color: var(--primary-color);
+    padding: 0.5rem;
+    color: white;
+  }
+
+  > div:last-of-type {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+
+  &__product_type {
+    min-height: utils.getRem(280);
+    max-height: utils.getRem(280);
+    border: var(--thin-gray-border);
+    border-radius: var(--six-pixel-border-radius);
+
+    &:hover {
+      border-color: var(--primary-color);
+      cursor: pointer;
+    }
+
+    > img {
+      width: 100%;
+      height: 90%;
+      object-fit: contain;
+    }
+
+    > p {
+      @include utils.centered-flex;
+      height: 10%;
+    }
+  }
+}
