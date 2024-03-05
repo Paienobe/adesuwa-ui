@@ -5,19 +5,28 @@ import SolidButton from "../SolidButton/SolidButton";
 import { LiaUserCheckSolid } from "react-icons/lia";
 import { GoChevronDown } from "react-icons/go";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../../context/GlobalContext/GlobalContext";
+import { navRoutes } from "../../constants/routes";
+import { useCustomerContext } from "../../context/CustomerContext/CustomerContext";
 
 const Navbar = () => {
-  const [queryText, setQueryText] = useState("");
+  const navigate = useNavigate();
+  const { queryText, setQueryText } = useGlobalContext();
+  const { customer } = useCustomerContext();
 
-  const handleQuery = (query: string) => {
+  const handleQueryInput = (query: string) => {
     setQueryText(query);
-    console.log(query);
+  };
+
+  const handleSearch = () => {
+    queryText && navigate("/catalog");
   };
 
   const location = useLocation();
-  const showNavbar = location.pathname.includes("/shop");
+  const path = String(location.pathname.substring(1));
+  const showNavbar = navRoutes[path];
+
   return (
     <nav
       className={styles.navbar}
@@ -27,14 +36,17 @@ const Navbar = () => {
         <img src={logo} alt="" />
 
         <div>
-          <SearchBar placeholder="Search products" queryHandler={handleQuery} />
-          <SolidButton text="SEARCH" />
+          <SearchBar
+            placeholder="Search products"
+            queryHandler={handleQueryInput}
+          />
+          <SolidButton text="SEARCH" onClick={handleSearch} />
         </div>
 
         <div>
           <button className={styles.navbar__profile_btn}>
             <LiaUserCheckSolid size={20} />
-            Progress
+            {customer?.first_name}
             <GoChevronDown />
           </button>
 

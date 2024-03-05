@@ -1,16 +1,17 @@
 @use "../../scss/utils/index" as utils;
 
 .navbar {
-  position: static;
+  position: sticky;
   top: 0;
+  background-color: white;
 
   > section {
-    width: 85%;
-    margin: auto;
+    @include utils.content_width;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     gap: 2rem;
     padding: 1rem 0;
+    background-color: white;
 
     > div:first-of-type {
       display: flex;

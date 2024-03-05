@@ -1,8 +1,7 @@
 @use "../../scss/utils/index" as utils;
 
 .shop {
-  width: 85%;
-  margin: auto;
+  @include utils.content_width;
 
   &__home_grid {
     display: grid;

@@ -23,3 +23,9 @@
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
 }
+
+@mixin content_width {
+  width: 85%;
+  margin: auto;
+  max-width: 1240px;
+}

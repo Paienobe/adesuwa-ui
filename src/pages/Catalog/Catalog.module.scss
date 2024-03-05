@@ -1,0 +1,8 @@
+@use "../../scss/utils/index" as utils;
+
+.catalog {
+  @include utils.content_width;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 3fr;
+}

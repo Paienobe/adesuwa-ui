@@ -21,6 +21,7 @@ export const RefreshContextProvider = ({ children }: Props) => {
       refreshToken()
         .then((result) => {
           const { access_token, user_type, user_data, expires_in } = result;
+
           updateBearerToken(access_token);
           user_type == "vendor" ? setVendor(user_data) : setCustomer(user_data);
 

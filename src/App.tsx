@@ -11,27 +11,32 @@ import { RefreshContextProvider } from "./context/RefreshContext/RefreshContext"
 import { CustomerProvider } from "./context/CustomerContext/CustomerContext";
 import Navbar from "./components/Navbar/Navbar";
 import Shop from "./pages/Shop/Shop";
+import Catalog from "./pages/Catalog/Catalog";
+import { GlobalContextProvider } from "./context/GlobalContext/GlobalContext";
 
 function App() {
   return (
     <>
       <Router>
-        <CustomerProvider>
-          <VendorProvider>
-            <RefreshContextProvider>
-              <Navbar />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route
-                  path="/auth"
-                  element={<AuthContextProvider children={<Auth />} />}
-                />
-                <Route path="/vendor-dashboard" element={<Vendor />} />
-                <Route path="/shop" element={<Shop />} />
-              </Routes>
-            </RefreshContextProvider>
-          </VendorProvider>
-        </CustomerProvider>
+        <GlobalContextProvider>
+          <CustomerProvider>
+            <VendorProvider>
+              <RefreshContextProvider>
+                <Navbar />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route
+                    path="/auth"
+                    element={<AuthContextProvider children={<Auth />} />}
+                  />
+                  <Route path="/vendor-dashboard" element={<Vendor />} />
+                  <Route path="/shop" element={<Shop />} />
+                  <Route path="/catalog" element={<Catalog />} />
+                </Routes>
+              </RefreshContextProvider>
+            </VendorProvider>
+          </CustomerProvider>
+        </GlobalContextProvider>
       </Router>
 
       <ToastContainer />

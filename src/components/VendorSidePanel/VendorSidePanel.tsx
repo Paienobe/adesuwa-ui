@@ -4,7 +4,6 @@ import { IoExitOutline } from "react-icons/io5";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { PiUserRectangleLight } from "react-icons/pi";
 import { BsShop } from "react-icons/bs";
-import { useVendorContext } from "../../context/VendorContext/VendorContext";
 import { useEffect } from "react";
 import { cancelRefresh } from "../../services/api/refresh";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +12,7 @@ import { useGlobalContext } from "../../context/GlobalContext/GlobalContext";
 
 const VendorSidePanel = () => {
   const navigate = useNavigate();
-  const { searchParams, setSearchParams } = useVendorContext();
+  const { searchParams, setSearchParams } = useGlobalContext();
   const { setAction } = useGlobalContext();
   const currentSection = searchParams.get("section");
 
